@@ -6,7 +6,7 @@ const { Navigator, Screen, } = createStackNavigator();
 
 export default function OnboardNavigator(): JSX.Element {
   return (
-    <Navigator screenOptions={{ headerShown: true }}>
+    <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="OnboardOne" component={OnboardOne} />
     </Navigator>
   );
