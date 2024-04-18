@@ -1,13 +1,14 @@
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { OnboardOne } from '../../Screens';
+import { OnboardingRoutes } from '../types';
 
-const { Navigator, Screen, } = createStackNavigator();
+const Onboarding = createStackNavigator<OnboardingRoutes>();
 
-export default function OnboardNavigator(): JSX.Element {
+export default function OnboardingStack(): JSX.Element {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="OnboardOne" component={OnboardOne} />
-    </Navigator>
+    <Onboarding.Navigator screenOptions={{ headerShown: false }}>
+      <Onboarding.Screen name="OnboardOne" component={OnboardOne} />
+    </Onboarding.Navigator>
   );
 }

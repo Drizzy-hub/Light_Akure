@@ -4,3 +4,8 @@ export type AuthRoutes = {
   ForgotPassword: undefined;
   ResetPassword: { token: string };
 };
+
+export type OnboardingRoutes = {
+  OnboardOne: undefined;
+  OnboardTwo: undefined;
+};

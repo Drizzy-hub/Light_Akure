@@ -1,1 +1,1 @@
-export { default as OnboardNavigator } from "./OnboardNavigator";
+export { default as OnboardingStack } from "./OnboardNavigator";

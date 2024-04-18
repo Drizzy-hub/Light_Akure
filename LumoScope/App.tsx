@@ -5,15 +5,14 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useCallback, useContext } from 'react';
 import { AuthProvider, AuthUserContext, OnboardProvider, OnboardUserContext } from './app/Contexts';
-import { AppNavigator, AuthNavigator, OnboardNavigator } from './app/Navigation';
+import { AppNavigator, AuthStack, OnboardingStack } from './app/Navigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { fonts } from './constants/fonts';
 
 
 export default function App() {
-  const onboarded = useContext(OnboardUserContext);
-  const user = useContext(AuthUserContext);
+
   const [fontsLoaded, fontError] = useFonts(fonts);
 
   const onLayoutRootView = useCallback(async () => {
@@ -30,11 +29,9 @@ export default function App() {
 
     <SafeAreaProvider onLayout={onLayoutRootView} >
       <NavigationContainer>
-        <OnboardProvider>
-          <AuthProvider>
-            {!user ? <AppNavigator /> : onboarded ? <AuthNavigator /> : <OnboardNavigator />}
-          </AuthProvider>
-        </OnboardProvider>
+
+        <AppNavigator />
+
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -7,9 +7,9 @@ import { AuthRoutes } from '../types';
 
 
 const { Navigator, Screen, Group } = createStackNavigator<AuthRoutes>();
-const AuthNavigator = () => {
+const AuthStack = () => {
   return (
-    <Navigator initialRouteName={'Login'} screenOptions={{ headerShown: true }}>
+    <Navigator initialRouteName={'Login'} screenOptions={{ headerShown: false }}>
       <Group>
         <Screen name="Login" component={Login} />
         <Screen name="Signup" component={Signup} />
@@ -18,7 +18,7 @@ const AuthNavigator = () => {
   )
 }
 
-export default AuthNavigator
+export default AuthStack
 
 
 

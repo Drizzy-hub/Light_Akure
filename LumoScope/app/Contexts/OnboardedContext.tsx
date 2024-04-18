@@ -8,7 +8,7 @@ export interface OnboardUserContextData {
 export const OnboardUserContext = createContext<OnboardUserContextData | undefined>(undefined);
 
 export const OnboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [onboarded, setOnboarded] = useState<boolean>(true);
+  const [onboarded, setOnboarded] = useState<boolean>(false);
 
   return (
     <OnboardUserContext.Provider
