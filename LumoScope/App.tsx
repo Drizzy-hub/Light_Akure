@@ -29,9 +29,11 @@ export default function App() {
 
     <SafeAreaProvider onLayout={onLayoutRootView} >
       <NavigationContainer>
-
-        <AppNavigator />
-
+        <OnboardProvider>
+          <AuthProvider>
+            <AppNavigator />
+          </AuthProvider>
+        </OnboardProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -3,7 +3,7 @@ import { Animated, Dimensions, FlatList, ImageBackground, StyleSheet, View, View
 import { Button, Container, Text } from '../../../components';
 import { CarouselPaths, imagePath } from './Data/OnboardArray';
 import colors from '../../../constants/Colors';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppRoutes, OnboardingRoutes } from '../../Navigation';
 import { OnboardUserContext } from '../../Contexts';
 
@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 const { width, height } = Dimensions.get('window');
 
 const OnboardOne = () => {
-  const { setOnboarded } = useContext(OnboardUserContext) || { setOnboarded: () => { } };
+  const { onboarded, setOnboarded } = useContext(OnboardUserContext);
   const navigation = useNavigation<useStackNavigationProp<AppRoutes, 'AuthStack'>>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [iconProgress, setIconProgress] = useState(new Animated.Value(0));
@@ -45,9 +45,8 @@ const OnboardOne = () => {
   }, [currentIndex]);
 
   const handleOnboarded = () => {
-    // Set onboarded state to true
-    // navigation.navigate("AuthStack", { screen: 'Login' })
-    setOnboarded(true);
+    setOnboarded(!onboarded)
+    console.log(onboarded)
   };
   return (
     <Container>
