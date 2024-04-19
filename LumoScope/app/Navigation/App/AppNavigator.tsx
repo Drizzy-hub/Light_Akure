@@ -14,11 +14,11 @@ import { OnboardUserContextData } from '../../Contexts/OnboardedContext';
 const { Navigator, Screen, Group } = createStackNavigator<AppRoutes>();
 const AppNavigator = () => {
   const { onboarded } = useContext(OnboardUserContext)
-  console.log(onboarded, 'state')
+  console.log(onboarded, 'UserState')
   const user = useContext(AuthUserContext);
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {!user ? (
+      {user ? (
         <Group>
           <Screen name="ClientStack" component={ClientNavigator} />
         </Group>

@@ -1,11 +1,18 @@
 import { StyleSheet, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { AuthRoutes } from '../../Navigation'
 import { StackNavigationProps } from '../../Navigation/types/types'
 import { Button, Container, FormInput, Text } from '../../../components'
 import colors from '../../../constants/Colors'
+import { AuthUserContext } from '../../Contexts'
 
 const Login = ({ navigation }: StackNavigationProps<AuthRoutes, 'Login'>) => {
+  const { user, setUser } = useContext(AuthUserContext);
+
+  const handleLogin = () => {
+    setUser(!user)
+    console.log(user, 'jr')
+  };
   return (
     <Container>
       <View style={styles.container}>
@@ -13,7 +20,7 @@ const Login = ({ navigation }: StackNavigationProps<AuthRoutes, 'Login'>) => {
         <Text style={{ marginTop: 10 }} color={colors.primaryTextColor} fontSize={12} fontWeight='400'>Sign in with your Phone number or email</Text>
         <View style={styles.form}>
           <FormInput placeholder='Enter Mail or Phone Number' label='Email (Phone Number)' />
-          <Button style={styles.btn} onPress={() => { }} text='Login' />
+          <Button style={styles.btn} onPress={handleLogin} text='Login' />
           <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'center' }}>
             <Text fontSize={12} fontWeight="700">
               You don't have an account?

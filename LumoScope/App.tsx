@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useCallback, useContext } from 'react';
@@ -9,6 +10,7 @@ import { AppNavigator, AuthStack, OnboardingStack } from './app/Navigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { fonts } from './constants/fonts';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 export default function App() {
@@ -26,16 +28,20 @@ export default function App() {
   }
 
   return (
-
-    <SafeAreaProvider onLayout={onLayoutRootView} >
-      <NavigationContainer>
-        <OnboardProvider>
-          <AuthProvider>
-            <AppNavigator />
-          </AuthProvider>
-        </OnboardProvider>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <BottomSheetModalProvider>
+            <OnboardProvider>
+              <AuthProvider>
+                <AppNavigator />
+                <StatusBar style={'dark'} backgroundColor="transparent" translucent />
+              </AuthProvider>
+            </OnboardProvider>
+          </BottomSheetModalProvider>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 

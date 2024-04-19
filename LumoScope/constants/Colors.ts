@@ -15,6 +15,7 @@ const colors = {
   borderGrey: "#C2C2C24D",
   card: "#F3F3F3",
   dark: "#0F0F0F",
+  dotted: "#022C4E",
   darkGreen: "#357F2F",
   disabled: "#E6E6E6",
   divider: "#C2C2C2",
@@ -27,6 +28,7 @@ const colors = {
   lightRed: "#FAE8EA",
   lightYellow: "#FFF3E6",
   notification: "#0000FF",
+  borderSep: "#F4F4F4",
   orange: "#FF8A00",
   peach: "#FF9D96",
   primary: "#0000FF",
@@ -42,8 +44,9 @@ const colors = {
   transparentBlack: "#00000014",
   warningDark: "#FEC84B",
   warningLight: "#FFFCF5",
-
+  textFoot: "#423F3C",
   whiteText: "#FEFEFE",
+  buzzBg: "#F5F5F5",
 };
 
 export default colors;
