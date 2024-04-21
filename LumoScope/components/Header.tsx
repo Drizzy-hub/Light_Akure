@@ -1,16 +1,11 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { layout } from '../app/Screens';
 import useHeaderHeight from '../hooks/getHeight';
 import { Text } from './Text';
 import colors from '../constants/Colors';
 import { Icons } from '../assets/Icons';
-
-
-
-
-const { spacing } = layout;
+import { layout } from '../constants';
 
 interface Props {
   title: string;
@@ -35,7 +30,6 @@ export default function Header({
   const navigation = useNavigation();
 
   const onBackPress = () => navigation.canGoBack() && navigation.goBack();
-
   const backgroundColor = colors.white;
 
   return (
@@ -44,7 +38,7 @@ export default function Header({
         style={[
           {
             backgroundColor,
-            height: hideTopInset ? spacing.padding / 2 : insets.top,
+            height: hideTopInset ? layout.spacing.padding / 2 : insets.top,
             marginBottom,
           },
         ]}
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: spacing.padding - 15, //Replace with layout sizes
+    padding: layout.spacing.padding - 15, //Replace with layout sizes
   },
   items: {
     alignItems: 'center',

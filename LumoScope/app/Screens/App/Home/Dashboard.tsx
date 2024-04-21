@@ -8,7 +8,7 @@ import { Locations } from './Locations'
 import Cards from './Cards'
 import colors from '../../../../constants/Colors'
 import { New } from '../Data/test'
-import { layout } from '.'
+// import { layout } from '.'
 import CardView from './Cards'
 import LightStatusComp from './LightCard'
 
@@ -37,7 +37,7 @@ const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Icons size={24} name='light-availability' />
-            <Icons size={24} style={{ marginLeft: 10 }} name='settings' />
+            <Icons onPress={() => navigation.navigate('Profile')} size={24} style={{ marginLeft: 10 }} name='settings' />
           </View>
         </View>
         <View style={{ marginTop: 24 }}>

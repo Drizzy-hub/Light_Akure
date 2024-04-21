@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, { Circle, Path, Rect, SvgProps } from 'react-native-svg';
+import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Mask, Path, Rect, Stop, SvgProps } from 'react-native-svg';
 
 import colors from '../../constants/Colors';
 import { IconName } from './icon';
@@ -354,7 +354,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
           d="M6.808 2.854v2H2v14h15.385v-9h1.923v10c0 .265-.102.52-.282.707a.943.943 0 0 1-.68.293H1.038a.943.943 0 0 1-.68-.293 1.02 1.02 0 0 1-.281-.707v-16c0-.265.101-.52.282-.707a.943.943 0 0 1 .68-.293h5.769Zm6.73 2v-4l6.731 6h-8.654c-.51 0-.999.21-1.36.586-.36.375-.563.883-.563 1.414v6H7.77v-6c0-1.061.405-2.078 1.127-2.829a3.773 3.773 0 0 1 2.72-1.171h1.922Z"
         />
       </>
-    )
+    ),
 
   };
 

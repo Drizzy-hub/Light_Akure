@@ -10,4 +10,5 @@ export type ClientRoutes = {
   Dashboard: undefined;
   CityBuzz: undefined;
   Status: undefined;
+  Profile: undefined;
 };

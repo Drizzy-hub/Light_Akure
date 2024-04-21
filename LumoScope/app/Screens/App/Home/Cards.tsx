@@ -3,28 +3,9 @@ import React from 'react'
 import { Text } from '../../../../components'
 import colors from '../../../../constants/Colors'
 import { New } from '../Data/test'
-// import { layout } from '.'
+import { layout } from '../../../../constants'
 
-import { Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-const layout = {
-  cards: {
-    announcementCard: width - 16 * 13,
-    cardRadius: 0,
-    cardSize: 120,
-    genreHeight: 90,
-    trackHeight: 0,
-    walletHeight: 120,
-    walletRadius: 8,
-    walletWidth: width - 16 * 4,
-  },
-  window: {
-    height,
-    width,
-  },
-};
 
 interface Props {
   marginRight?: number;

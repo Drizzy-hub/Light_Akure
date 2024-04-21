@@ -3,17 +3,15 @@ import { Animated, Dimensions, FlatList, ImageBackground, StyleSheet, View, View
 import { Button, Container, Text } from '../../../components';
 import { CarouselPaths, imagePath } from './Data/OnboardArray';
 import colors from '../../../constants/Colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AppRoutes, OnboardingRoutes } from '../../Navigation';
+import { AppRoutes } from '../../Navigation';
 import { OnboardUserContext } from '../../Contexts';
 
 import CircularProgress from './Data/CircularProgress';
 import { StackNavigationProps, useStackNavigationProp } from '../../Navigation/types/types';
 import { useNavigation } from '@react-navigation/native';
+import { layout } from '../../../constants';
 
-
-
-const { width, height } = Dimensions.get('window');
+// import { layout } from '../App';
 
 const OnboardOne = () => {
   const { onboarded, setOnboarded } = useContext(OnboardUserContext);
@@ -99,12 +97,12 @@ const OnboardOne = () => {
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: height / 2,
+    height: layout.window.height / 2,
   },
   container: {
-    width,
+    width: layout.window.width,
     flex: 1,
-    height: height,
+    height: layout.window.height,
     alignItems: 'center',
   },
   btn1: {
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
   bottom: {
     backgroundColor: colors.primaryBlue,
     paddingHorizontal: 24,
-    width: width,
+    width: layout.window.width,
   },
   btns: {
     marginTop: 64,

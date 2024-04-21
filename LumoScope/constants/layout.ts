@@ -1,6 +1,5 @@
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
-
 const xSmall = width < 325;
 const small = width >= 325 && width < 350; //325 > width > 350
 const medium = width >= 350 && width < 450;
