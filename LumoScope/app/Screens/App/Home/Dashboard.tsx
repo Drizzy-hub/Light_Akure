@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { StackNavigationProps } from '../../../Navigation/types/types'
 import { AppRoutes, ClientRoutes } from '../../../Navigation'
-import { Container, Footer, Form, FormPicker, Text } from '../../../../components'
+import { Button, Container, Footer, Form, FormPicker, Text } from '../../../../components'
 import { Icons } from '../../../../assets/Icons'
 import { Locations } from './Locations'
 import Cards from './Cards'
@@ -25,6 +25,7 @@ const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard
   const handleOnchange = (text: string, input: keyof Inputs) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
+
   return (
     <Container>
       <View style={styles.container}>
