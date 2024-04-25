@@ -11,6 +11,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { fonts } from './constants/fonts';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 
 export default function App() {
@@ -28,20 +30,24 @@ export default function App() {
   }
 
   return (
+
     <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <SafeAreaProvider>
         <NavigationContainer>
           <BottomSheetModalProvider>
-            <OnboardProvider>
-              <AuthProvider>
-                <AppNavigator />
-                <StatusBar style={'dark'} backgroundColor="transparent" translucent />
-              </AuthProvider>
-            </OnboardProvider>
+            <Provider store={store}>
+              <OnboardProvider>
+                <AuthProvider>
+                  <AppNavigator />
+                  <StatusBar style={'dark'} backgroundColor="transparent" translucent />
+                </AuthProvider>
+              </OnboardProvider>
+            </Provider>
           </BottomSheetModalProvider>
         </NavigationContainer>
       </SafeAreaProvider>
     </GestureHandlerRootView>
+
   );
 }
 

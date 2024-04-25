@@ -10,12 +10,15 @@ import { Login, Signup } from '../../Screens';
 // import { OnboardUserContextData } from '../../Contexts/OnboardedContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { OnboardUserContextData } from '../../Contexts/OnboardedContext';
+import { useSelector } from 'react-redux';
 
 const { Navigator, Screen, Group } = createStackNavigator<AppRoutes>();
 const AppNavigator = () => {
   const { onboarded } = useContext(OnboardUserContext)
   console.log(onboarded, 'UserState')
   const user = useContext(AuthUserContext);
+  const authState = useSelector((state) => state.auth.onboarded);
+  console.log(authState, 'state')
   return (
     <Navigator screenOptions={{ headerShown: false }}>
       {user ? (
