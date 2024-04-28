@@ -10,12 +10,13 @@ import CircularProgress from './Data/CircularProgress';
 import { StackNavigationProps, useStackNavigationProp } from '../../Navigation/types/types';
 import { useNavigation } from '@react-navigation/native';
 import { layout } from '../../../constants';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setOnboarded } from '../../../store/features/authSlice';
 
 // import { layout } from '../App';
 
 const OnboardOne = () => {
-  const { onboarded, setOnboarded } = useContext(OnboardUserContext);
-  const navigation = useNavigation<useStackNavigationProp<AppRoutes, 'AuthStack'>>();
+  const dispatch = useAppDispatch()
   const [currentIndex, setCurrentIndex] = useState(0);
   const [iconProgress, setIconProgress] = useState(new Animated.Value(0));
   const flatListRef = useRef<FlatList<imagePath>>(null);
@@ -43,8 +44,7 @@ const OnboardOne = () => {
   }, [currentIndex]);
 
   const handleOnboarded = () => {
-    setOnboarded(!onboarded)
-    console.log(onboarded)
+    dispatch(setOnboarded(true))
   };
   return (
     <Container>

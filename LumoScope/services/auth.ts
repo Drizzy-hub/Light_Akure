@@ -1,4 +1,6 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { injectEndpoints } from "./api";
+
 interface APIDataResponse<D> {
   success: boolean;
   data: D;
@@ -14,7 +16,7 @@ const authenticationEndpoints = injectEndpoints({
       query: (body) => ({
         body,
         method: "POST",
-        url: "/v2/auth/users/biometric-login/",
+        url: "/signup.php",
       }),
     }),
 
@@ -37,4 +39,5 @@ const authenticationEndpoints = injectEndpoints({
   overrideExisting: true,
 });
 
-export const { endpoints: useSignupMutation } = authenticationEndpoints;
+export const { endpoints: authEndpoints, useSignupMutation } =
+  authenticationEndpoints;
