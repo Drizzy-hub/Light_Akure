@@ -12,7 +12,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { fonts } from './constants/fonts';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { store, persistor } from './store/store';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 
 export default function App() {
@@ -35,13 +36,11 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <BottomSheetModalProvider>
-            <Provider store={store}>
-              <OnboardProvider>
-                <AuthProvider>
-                  <AppNavigator />
-                  <StatusBar style={'dark'} backgroundColor="transparent" translucent />
-                </AuthProvider>
-              </OnboardProvider>
+            <Provider {...{ store }}>
+              <PersistGate loading={null} {...{ persistor }}>
+                <AppNavigator />
+                <StatusBar style={'dark'} backgroundColor="transparent" translucent />
+              </PersistGate>
             </Provider>
           </BottomSheetModalProvider>
         </NavigationContainer>

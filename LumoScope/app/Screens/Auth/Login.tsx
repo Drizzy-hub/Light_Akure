@@ -1,17 +1,31 @@
 import { StyleSheet, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthRoutes } from '../../Navigation'
 import { StackNavigationProps } from '../../Navigation/types/types'
 import { Button, Container, FormInput, Text } from '../../../components'
 import colors from '../../../constants/Colors'
 import { AuthUserContext } from '../../Contexts'
+import { useLoginMutation } from '../../../services/auth'
+import { useAppDispatch } from '../../../store/hooks'
+import { handleMutationService } from '../../../services/config/handleService'
+import { setUser } from '../../../store/features/authSlice'
 
 const Login = ({ navigation }: StackNavigationProps<AuthRoutes, 'Login'>) => {
-  const { user, setUser } = useContext(AuthUserContext);
-
+  const [completeLogin] = useLoginMutation();
+  const dispatch = useAppDispatch()
+  const [input, setInput] = useState('');
   const handleLogin = () => {
-    setUser(!user)
-    console.log(user, 'jr')
+    handleMutationService({
+      mutation: completeLogin({
+        // Assuming the input value is either an email or phone number
+        phone: input,
+      }),
+      onSuccess(data) {
+        dispatch(setUser(data))
+        console.log('~login Data', data)
+        // Handle success, e.g., navigation or updating state
+      },
+    });
   };
   return (
     <Container>
@@ -19,8 +33,11 @@ const Login = ({ navigation }: StackNavigationProps<AuthRoutes, 'Login'>) => {
         <Text fontSize={24} fontWeight='600'>Login</Text>
         <Text style={{ marginTop: 10 }} color={colors.primaryTextColor} fontSize={12} fontWeight='400'>Sign in with your Phone number or email</Text>
         <View style={styles.form}>
-          <FormInput placeholder='Enter Mail or Phone Number' label='Email (Phone Number)' />
-          <Button style={styles.btn} onPress={handleLogin} text='Login' />
+          <FormInput value={input}
+            onChangeText={(text) => setInput(text)}
+            placeholder='Enter Mail or Phone Number'
+            label='Phone Number' />
+          <Button onPress={handleLogin} style={styles.btn} text='Login' />
           <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'center' }}>
             <Text fontSize={12} fontWeight="700">
               You don't have an account?

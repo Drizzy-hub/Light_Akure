@@ -11,4 +11,5 @@ export type ClientRoutes = {
   CityBuzz: undefined;
   Status: undefined;
   Profile: undefined;
+  News: { id: string };
 };

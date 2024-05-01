@@ -1,31 +1,39 @@
-import { View, StyleSheet, ImageBackground, FlatList, ImageRequireSource } from 'react-native'
-import React from 'react'
+import { View, StyleSheet, ImageBackground, FlatList, ImageRequireSource, Image, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import { Text } from '../../../../components'
 import colors from '../../../../constants/Colors'
 import { New } from '../Data/test'
 import { layout } from '../../../../constants'
+import { useGetTimelineQuery } from '../../../../services/auth'
+import { useNavigation } from '@react-navigation/native'
+import { AppRoutes, ClientRoutes } from '../../../Navigation'
+import { StackNavigationProps, useStackNavigationProp } from '../../../Navigation/types/types'
 
 
 
 interface Props {
   marginRight?: number;
   item: string;
-  uri: ImageRequireSource
+  uri: string;
+  press: () => void;
 }
-const Cards = ({ marginRight, item, uri }: Props) => {
+const Cards = ({ marginRight, press, item, uri }: Props) => {
+
   return (
-    <View style={[styles.container, { marginRight }]}>
-      <ImageBackground style={styles.card} source={uri}>
-        <Text style={{ paddingHorizontal: 9, textAlign: 'left', marginTop: 62 }} fontSize={10} fontWeight='600' color={colors.white}>{item}</Text>
+    <TouchableOpacity onPress={press} style={[styles.container, { marginRight }]}>
+      <ImageBackground style={styles.card} source={{ uri }}>
+        <Text style={{ paddingHorizontal: 9, textAlign: 'left', marginTop: 62 }} fontSize={11} fontWeight='600' color={colors.white}>{item}</Text>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   )
 }
 const CardView = () => {
+  const { data } = useGetTimelineQuery();
+  const navigation = useNavigation<useStackNavigationProp<AppRoutes, 'ClientStack'>>();
   return (
     <>
       <FlatList
-        data={New}
+        data={data?.data || []}
         decelerationRate="fast"
         snapToInterval={layout.cards.walletWidth + 16}
         keyExtractor={(_, i) => i.toString()}
@@ -36,7 +44,9 @@ const CardView = () => {
         renderItem={({ item, index }) => {
           const last = index === New.length - 1;
           return (
-            <Cards item={item.label} marginRight={last ? 0 : 16} uri={item.uri} />
+            <Cards press={() => {
+              navigation.navigate('ClientStack', { screen: 'News', params: { id: item.id } })
+            }} item={item.title} marginRight={last ? 0 : 16} uri={`http://192.168.0.102/lumoscope/${item.image_path}`} />
           )
         }} />
     </>

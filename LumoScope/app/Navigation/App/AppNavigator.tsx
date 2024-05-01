@@ -14,7 +14,8 @@ import { useAppSelector } from '../../../store/hooks';
 
 const { Navigator, Screen, Group } = createStackNavigator<AppRoutes>();
 const AppNavigator = () => {
-  const { onboarded, user } = useAppSelector((state) => state.root.auth);
+  const { onboarded, user } = useAppSelector((state) => state.authSlice);
+
   return (
     <Navigator screenOptions={{ headerShown: false }}>
       {user ? (

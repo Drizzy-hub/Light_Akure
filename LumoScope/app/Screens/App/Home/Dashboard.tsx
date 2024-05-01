@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { StackNavigationProps } from '../../../Navigation/types/types'
 import { AppRoutes, ClientRoutes } from '../../../Navigation'
 import { Button, Container, Footer, Form, FormPicker, Text } from '../../../../components'
@@ -11,29 +11,49 @@ import { New } from '../Data/test'
 // import { layout } from '.'
 import CardView from './Cards'
 import LightStatusComp from './LightCard'
+import { useAppSelector } from '../../../../store/hooks'
+import { useGetLocationQuery } from '../../../../services/auth'
+
 
 interface Inputs {
   location: string;
-
 }
 
 
 const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard'>) => {
+  const { user } = useAppSelector((state) => state.authSlice);
   const [inputs, setInputs] = useState<Inputs>({
     location: ''
   });
   const handleOnchange = (text: string, input: keyof Inputs) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
-
+  const { data } = useGetLocationQuery();
+  const getTimeOfDay = () => {
+    const currentTime = new Date().getHours();
+    if (currentTime >= 5 && currentTime < 12) {
+      return 'morning';
+    } else if (currentTime >= 12 && currentTime < 17) {
+      return 'afternoon';
+    } else {
+      return 'evening';
+    }
+  };
+  const [timeOfDay, setTimeOfDay] = useState('');
+  useEffect(() => {
+    const time = getTimeOfDay();
+    setTimeOfDay(time);
+  }, []);
   return (
+
     <Container>
+
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
             <Text fontSize={14} fontWeight='700'>Welcome to Lumoscape!</Text>
             <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-              <Text fontSize={14} fontWeight='400'>Good afternoon samuel </Text><Icons size={12} name='waving' />
+              <Text fontSize={14} fontWeight='400'>Good {timeOfDay} {user?.user.name} </Text><Icons size={12} name='waving' />
             </View>
           </View>
           <View style={{ flexDirection: 'row' }}>
@@ -52,7 +72,12 @@ const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard
               console.log(values)
             }}
           >
-            <FormPicker onSelectItem={(item) => handleOnchange(item.value, 'location')} items={Locations} name='Location' LeftComponent={<Icons size={24} name='location' />} placeholder='Location' />
+            <FormPicker items={
+              data?.data.map((state) => ({
+                label: state?.location,
+                value: state?.id,
+              })) ?? []}
+              onSelectItem={(item) => handleOnchange(item.value, 'location')} name='Location' LeftComponent={<Icons size={24} name='location' />} placeholder='Location' />
           </Form>
         </View>
       </View>
@@ -67,13 +92,15 @@ const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard
         </View>
       </View>
       <View style={styles.container}>
-        <View style={{ marginTop: 33 }}>
+        <View style={{ marginTop: 33, }}>
           <Text fontSize={14} style={{ marginBottom: 16 }} fontWeight='700'>Power Status in Nearby Areas</Text>
           <LightStatusComp />
         </View>
       </View>
-      <Footer />
+      {/* <Footer /> */}
+
     </Container>
+
   )
 }
 

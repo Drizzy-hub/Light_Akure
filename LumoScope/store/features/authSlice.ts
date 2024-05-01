@@ -1,9 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { APILoginResponse, authEndpoints } from "../../services/auth";
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
+
 interface AuthState {
   onboarded: boolean;
-  user: undefined;
+  user?: APILoginResponse | null;
 }
 const initialState: AuthState = {
   onboarded: false,
@@ -11,6 +13,15 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authEndpoints.getLocation.matchFulfilled,
+      (state, payload) => {
+        console.log(state, "state");
+        console.log(payload.payload, "payload");
+      }
+    );
+  },
   initialState,
   name: "auth",
   reducers: {
@@ -26,9 +37,18 @@ const authSlice = createSlice({
     setOnboarded: (state, action: PayloadAction<boolean>) => {
       state.onboarded = action.payload;
     },
+    logout: (state) => {
+      return {
+        ...initialState,
+        onboarded: state.onboarded,
+      };
+    },
+    setUser: (state, action: PayloadAction<APILoginResponse | null>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setOnboarded } = authSlice.actions;
+export const { setOnboarded, logout, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

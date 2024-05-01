@@ -1,17 +1,17 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Storage } from "redux-persist";
-import EncryptedStorage from "react-native-encrypted-storage";
 
 export const reduxStorage: Storage = {
   getItem: (key) => {
-    const value = EncryptedStorage.getItem(key);
+    const value = AsyncStorage.getItem(key);
     return Promise.resolve(value);
   },
   removeItem: (key) => {
-    EncryptedStorage.removeItem(key);
+    AsyncStorage.removeItem(key);
     return Promise.resolve();
   },
   setItem: (key, value) => {
-    EncryptedStorage.setItem(key, value);
+    AsyncStorage.setItem(key, value);
     return Promise.resolve(true);
   },
 };
