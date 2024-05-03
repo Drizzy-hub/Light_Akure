@@ -6,10 +6,12 @@ import { APILoginResponse, authEndpoints } from "../../services/auth";
 interface AuthState {
   onboarded: boolean;
   user?: APILoginResponse | null;
+  location: string;
 }
 const initialState: AuthState = {
   onboarded: false,
   user: undefined,
+  location: "",
 };
 
 const authSlice = createSlice({
@@ -46,9 +48,12 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<APILoginResponse | null>) => {
       state.user = action.payload;
     },
+    setLocation: (state, action: PayloadAction<string>) => {
+      state.location = action.payload;
+    },
   },
 });
 
-export const { setOnboarded, logout, setUser } = authSlice.actions;
+export const { setOnboarded, logout, setUser, setLocation } = authSlice.actions;
 
 export default authSlice.reducer;

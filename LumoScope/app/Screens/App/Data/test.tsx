@@ -1,5 +1,5 @@
 import { ImageRequireSource } from "react-native/types";
-import { LightCard } from "../Home/LightCard";
+
 
 export interface newsPath {
   uri: ImageRequireSource;
@@ -22,9 +22,9 @@ export const New: newsPath[] = [
 ];
 
 
-export const Status: LightCard[] = [
-  { location: 'Oba-Ile, Akure', light: true, duration: 2, faulty: false },
-  { location: 'North Gate, Akure', light: false, duration: 4, faulty: true },
-  { location: 'Alagbaka, Akure', light: true, duration: 8, faulty: false },
-  { location: 'Alagbaka, Akure', light: false, duration: 8, faulty: false },
-];
+// export const Status: LightCard[] = [
+//   { location: 'Oba-Ile, Akure', light: true, duration: 2, faulty: false },
+//   { location: 'North Gate, Akure', light: false, duration: 4, faulty: true },
+//   { location: 'Alagbaka, Akure', light: true, duration: 8, faulty: false },
+//   { location: 'Alagbaka, Akure', light: false, duration: 8, faulty: false },
+// ];

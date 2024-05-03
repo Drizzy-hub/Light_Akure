@@ -43,10 +43,31 @@ export interface TimelineData {
   image_path: string;
   time_created: string;
 }
-// interface IdTimeline {
-//   success: boolean;
-//   data: TimelineData;
-// }
+export interface LightStatus {
+  success: boolean;
+  data: LightData[];
+}
+
+interface LightData {
+  id: string;
+  location: string;
+  is_faulty: boolean;
+  is_light: boolean;
+  light_start: string;
+  light_end: string;
+  notification_sent?: string;
+  duration: string;
+  availability: string;
+}
+interface Barchart {
+  success: boolean;
+  data: BarData[];
+}
+
+export interface BarData {
+  label: string;
+  value: number;
+}
 
 const authenticationEndpoints = injectEndpoints({
   endpoints: (builder) => ({
@@ -75,9 +96,30 @@ const authenticationEndpoints = injectEndpoints({
         url: `/get_timeline.php`,
       }),
     }),
-    getTimelineById: builder.query<TimelineData, { id: string }>({
+    getTimelineById: builder.query<
+      APIDataResponse<TimelineData>,
+      { id: string }
+    >({
       query: ({ id }) => ({
         url: `/get_timelineby_id.php?id=${id}/`,
+      }),
+    }),
+    getLightStatusByID: builder.query<
+      APIDataResponse<LightData>,
+      { id: string }
+    >({
+      query: ({ id }) => ({
+        url: `/get_light_status_id.php?id=${id}/`,
+      }),
+    }),
+    getLight: builder.query<LightStatus, void>({
+      query: () => ({
+        url: `/get_light_status.php`,
+      }),
+    }),
+    getChart: builder.query<Barchart, { id: string }>({
+      query: ({ id }) => ({
+        url: `/getChart.php?id=${id}/`,
       }),
     }),
   }),
@@ -101,4 +143,7 @@ export const {
   useGetLocationQuery,
   useGetTimelineQuery,
   useGetTimelineByIdQuery,
+  useGetLightQuery,
+  useGetLightStatusByIDQuery,
+  useGetChartQuery,
 } = authenticationEndpoints;

@@ -11,8 +11,9 @@ import { New } from '../Data/test'
 // import { layout } from '.'
 import CardView from './Cards'
 import LightStatusComp from './LightCard'
-import { useAppSelector } from '../../../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { useGetLocationQuery } from '../../../../services/auth'
+import { setLocation } from '../../../../store/features/authSlice'
 
 
 interface Inputs {
@@ -21,12 +22,14 @@ interface Inputs {
 
 
 const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard'>) => {
-  const { user } = useAppSelector((state) => state.authSlice);
+  const { user, location } = useAppSelector((state) => state.authSlice);
+  const dispatch = useAppDispatch();
   const [inputs, setInputs] = useState<Inputs>({
     location: ''
   });
   const handleOnchange = (text: string, input: keyof Inputs) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
+    // 
   };
   const { data } = useGetLocationQuery();
   const getTimeOfDay = () => {
@@ -77,7 +80,8 @@ const Dashboard = ({ navigation }: StackNavigationProps<ClientRoutes, 'Dashboard
                 label: state?.location,
                 value: state?.id,
               })) ?? []}
-              onSelectItem={(item) => handleOnchange(item.value, 'location')} name='Location' LeftComponent={<Icons size={24} name='location' />} placeholder='Location' />
+
+              onSelectItem={(item) => { handleOnchange(item.value, 'location'); dispatch(setLocation(item.label)) }} name='Location' LeftComponent={<Icons size={24} name='location' />} placeholder={location ?? 'Select Location'} />
           </Form>
         </View>
       </View>

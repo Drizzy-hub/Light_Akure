@@ -29,9 +29,11 @@ const Cards = ({ marginRight, press, item, uri }: Props) => {
 }
 const CardView = () => {
   const { data } = useGetTimelineQuery();
+  console.log(data, 'check here')
   const navigation = useNavigation<useStackNavigationProp<AppRoutes, 'ClientStack'>>();
   return (
     <>
+
       <FlatList
         data={data?.data || []}
         decelerationRate="fast"
@@ -41,11 +43,12 @@ const CardView = () => {
         showsHorizontalScrollIndicator={false}
         ListHeaderComponent={<View style={{ width: 16 }} />}
         ListFooterComponent={<View style={{ width: 16 }} />}
+        ListEmptyComponent={<Text style={{ paddingLeft: 10 }}>News not available</Text>}
         renderItem={({ item, index }) => {
           const last = index === New.length - 1;
           return (
             <Cards press={() => {
-              navigation.navigate('ClientStack', { screen: 'News', params: { id: item.id } })
+              navigation.navigate('ClientStack', { screen: 'News', params: { id: item.id ?? '' } })
             }} item={item.title} marginRight={last ? 0 : 16} uri={`http://192.168.0.102/lumoscope/${item.image_path}`} />
           )
         }} />

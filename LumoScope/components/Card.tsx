@@ -6,26 +6,29 @@ import { Icons } from "../assets/Icons";
 import { Text } from "./Text";
 import colors from '../constants/Colors';
 
-export interface LightCard {
-  light: boolean,
-  location: string,
-  duration: number,
+interface CardProp {
+  light?: boolean,
+  location?: string,
+  duration?: string,
   faulty?: boolean
+  lastSeen?: string
+  press?: () => void
 }
 
-const LightCard = ({ light, location, faulty, duration }: LightCard) => {
-  const navigation = useNavigation<useStackNavigationProp<AppRoutes, 'ClientStack'>>();
+const LightCard = ({ light, press, location, faulty, duration, lastSeen }: CardProp) => {
   return (
-    <TouchableOpacity onPress={() => { navigation.navigate('ClientStack', { screen: 'Status' }) }}>
+    <TouchableOpacity onPress={press}>
       <View style={styles.container}>
         <View>
           <Text style={{ marginBottom: 13 }} fontSize={14} fontWeight='700'>{location}</Text>
-          <Text fontSize={12} fontWeight='400'>Duration of Availability: {duration} hours</Text>
+          <Text fontSize={12} fontWeight='400'>Estimated Period: {duration ?? 'Not Available'} </Text>
+          {light == 1 ? '' :
+            <Text style={{ marginTop: 8 }}>Last Seen:{lastSeen ?? 'Not Available'}</Text>}
+          {faulty == 1 ? <Text color={colors.red} style={{ marginTop: 8 }} fontSize={10} fontWeight='300'>Faulty</Text> : ''}
 
-          {faulty ? <Text color={colors.red} style={{ marginTop: 8 }} fontSize={10} fontWeight='300'>Faulty</Text> : ''}
         </View>
         <View>
-          {light ? <Icons size={40} name='light-on' /> : <Icons size={40} name='light-off' />}
+          {light == 1 ? <Icons size={40} name='light-on' /> : <Icons size={40} name='light-off' />}
         </View>
       </View>
     </TouchableOpacity>

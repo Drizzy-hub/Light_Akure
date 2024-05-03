@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -14,10 +15,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import registerNNPushToken from 'native-notify';
 
 
 export default function App() {
-
+  registerNNPushToken(21117, 'gSKsiLLvuKQdSJIqNRAUVx');
   const [fontsLoaded, fontError] = useFonts(fonts);
 
   const onLayoutRootView = useCallback(async () => {
