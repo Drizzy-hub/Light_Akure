@@ -20,6 +20,16 @@ const Signup = ({ navigation }: StackNavigationProps<AuthRoutes, 'Signup'>) => {
   const [completeSignUp, { isLoading }] = useSignupMutation();
   const [completeLogin] = useLoginMutation();
   const dispatch = useAppDispatch()
+  const [inputs, setInputs] = useState<SignupModel>({
+    Phone: '',
+    Email: '',
+    Name: '',
+  });
+
+  const handleOnchange = (text: string, input: keyof SignupModel) => {
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
+  };
+  const disabled = Object.values(inputs).some((value) => value === '');
 
   return (
 
@@ -61,23 +71,26 @@ const Signup = ({ navigation }: StackNavigationProps<AuthRoutes, 'Signup'>) => {
 
                 }}>
                 <FormField
+                  onTextChange={(text) => handleOnchange(text, 'Name')}
                   label='Name'
                   name='Name'
                   placeholder='Input your name'
                 />
                 <FormField
+                  onTextChange={(text) => handleOnchange(text, 'Email')}
                   label='Email'
                   name='Email'
                   placeholder='Input your Email'
                 />
 
                 <FormField
+                  onTextChange={(text) => handleOnchange(text, 'Phone')}
                   placeholder='Input your phone number'
                   label='Phone Number'
                   name='Phone'
 
                 />
-                <Submit style={styles.btn} loading={isLoading} text="Submit" />
+                <Submit disabled={disabled} style={styles.btn} loading={isLoading} text="Submit" />
               </Form>
               <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'center' }}>
                 <Text fontSize={12} fontWeight="700">

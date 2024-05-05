@@ -35,9 +35,9 @@ const Login = ({ navigation }: StackNavigationProps<AuthRoutes, 'Login'>) => {
         <View style={styles.form}>
           <FormInput value={input}
             onChangeText={(text) => setInput(text)}
-            placeholder='Enter Mail or Phone Number'
+            placeholder='Enter Phone Number'
             label='Phone Number' />
-          <Button onPress={handleLogin} style={styles.btn} text='Login' />
+          <Button disabled={input == ''} onPress={handleLogin} style={styles.btn} text='Login' />
           <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'center' }}>
             <Text fontSize={12} fontWeight="700">
               You don't have an account?
