@@ -1,10 +1,19 @@
-import * as React from 'react';
-import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Mask, Path, Rect, Stop, SvgProps } from 'react-native-svg';
+import * as React from "react";
+import Svg, {
+  Circle,
+  Defs,
+  Ellipse,
+  G,
+  LinearGradient,
+  Mask,
+  Path,
+  Rect,
+  Stop,
+  SvgProps,
+} from "react-native-svg";
 
-import colors from '../../constants/Colors';
-import { IconName } from './icon';
-
-
+import colors from "../../constants/Colors";
+import { IconName } from "./icon";
 
 interface Props extends SvgProps {
   name: IconName;
@@ -17,7 +26,13 @@ type Icon = {
   [key in IconName]: JSX.Element;
 };
 
-export default function Icon({ name, color: Color, onPress, size = 24, ...props }: Props): JSX.Element {
+export default function Icon({
+  name,
+  color: Color,
+  onPress,
+  size = 24,
+  ...props
+}: Props): JSX.Element {
   const color = Color || colors.text;
 
   const IconMap: Icon = {
@@ -83,30 +98,31 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    "onboard-three": (<>
-      <Path
-        stroke="#36A629"
-        strokeLinecap="round"
-        strokeWidth={2.5}
-        d="M27 52a25 25 0 1 0 0-50 25 25 0 0 0 0 50h0Z"
-      />
-      <Path
-        stroke="#fff"
-        strokeLinecap="round"
-        strokeWidth={2.5}
-        d="M28.032 51.979a25.001 25.001 0 1 0-2.065-49.96 25.001 25.001 0 0 0 2.066 49.96h0Z"
-        opacity={0.1}
-      />
-      <Circle cx={27} cy={27} r={20} fill="#fff" />
-      <Path
-        stroke="#15619F"
-        strokeLinecap="round"
-        strokeWidth={1.5}
-        d="m25 22 4.859 4.859a.2.2 0 0 1 0 .282L25 32"
-      />
-    </>
+    "onboard-three": (
+      <>
+        <Path
+          stroke="#36A629"
+          strokeLinecap="round"
+          strokeWidth={2.5}
+          d="M27 52a25 25 0 1 0 0-50 25 25 0 0 0 0 50h0Z"
+        />
+        <Path
+          stroke="#fff"
+          strokeLinecap="round"
+          strokeWidth={2.5}
+          d="M28.032 51.979a25.001 25.001 0 1 0-2.065-49.96 25.001 25.001 0 0 0 2.066 49.96h0Z"
+          opacity={0.1}
+        />
+        <Circle cx={27} cy={27} r={20} fill="#fff" />
+        <Path
+          stroke="#15619F"
+          strokeLinecap="round"
+          strokeWidth={1.5}
+          d="m25 22 4.859 4.859a.2.2 0 0 1 0 .282L25 32"
+        />
+      </>
     ),
-    "angle": (
+    angle: (
       <>
         <Path
           stroke="#15619F"
@@ -124,7 +140,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    "settings": (
+    settings: (
       <>
         <Path
           fill="#15619F"
@@ -132,7 +148,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    'waving': (
+    waving: (
       <>
         <Path
           fill="#42ADE2"
@@ -176,11 +192,32 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    "check": (
+    check: (
       <>
-        <Rect width={22.667} height={22.667} x={0.667} y={0.667} fill="#00F" rx={11.333} />
-        <Path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.02} d="m16.162 9.09-5.556 5.556-2.525-2.525" />
-        <Rect width={22.667} height={22.667} x={0.667} y={0.667} stroke="#00F" strokeWidth={1.333} rx={11.333} />
+        <Rect
+          width={22.667}
+          height={22.667}
+          x={0.667}
+          y={0.667}
+          fill="#00F"
+          rx={11.333}
+        />
+        <Path
+          stroke="#fff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2.02}
+          d="m16.162 9.09-5.556 5.556-2.525-2.525"
+        />
+        <Rect
+          width={22.667}
+          height={22.667}
+          x={0.667}
+          y={0.667}
+          stroke="#00F"
+          strokeWidth={1.333}
+          rx={11.333}
+        />
       </>
     ),
     "arrow-drop-down": (
@@ -193,7 +230,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    "location": (
+    location: (
       <>
         <Path
           stroke="#15619F"
@@ -318,7 +355,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    "refresh": (
+    refresh: (
       <>
         <Path
           fill="#15619F"
@@ -347,7 +384,7 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-    'share': (
+    share: (
       <>
         <Path
           fill="#000"
@@ -355,11 +392,18 @@ export default function Icon({ name, color: Color, onPress, size = 24, ...props 
         />
       </>
     ),
-
+    wifi: (
+      <Path
+        stroke={color}
+        strokeLinecap="round"
+        strokeWidth={2.4}
+        d="M8.111 16.404a5.5 5.5 0 0 1 7.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+      />
+    ),
   };
 
   return (
-    <Svg {...props} width={size} height={size}  {...{ onPress }} fill="none">
+    <Svg {...props} width={size} height={size} {...{ onPress }} fill="none">
       {IconMap[name]}
     </Svg>
   );

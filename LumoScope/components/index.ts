@@ -7,3 +7,4 @@ export { default as LightCard } from "./Card";
 export { default as StackedBarChart } from "./Chart";
 export { default as VirtualScroll } from "./VirtualScroll";
 export * from "./Form";
+export { default as NetowrkAware } from "./NetworkAware";

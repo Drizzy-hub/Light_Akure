@@ -13,4 +13,5 @@ export type IconName =
   | "light-off"
   | "refresh"
   | "back-arrow"
-  | "share";
+  | "share"
+  | "wifi";
