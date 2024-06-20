@@ -11,6 +11,8 @@ export interface APILoginResponse {
 	success: boolean;
 	token: string;
 	user: {
+		id: string;
+		location: string;
 		name: string;
 		phone: string;
 		email: string;
@@ -85,6 +87,13 @@ const authenticationEndpoints = injectEndpoints({
 				url: `/login.php?${body}`,
 			}),
 		}),
+		locationMutate: builder.mutation({
+			query: ({ id, location }) => ({
+				url: `/user_location_update.php?id=${id}`,
+				method: 'POST',
+				body: { location },
+			}),
+		}),
 		getLocation: builder.query<Location, void>({
 			query: () => ({
 				url: `/get_location.php`,
@@ -124,6 +133,15 @@ const authenticationEndpoints = injectEndpoints({
 		}),
 	}),
 
+	// editProfile: builder.mutation<void, EditProfileModel>({
+	//   invalidatesTags: ["GetUser"],
+	//   query: (body) => ({
+	//     body,
+	//     method: "POST",
+	//     url: "v1/auth/users/update-profile/",
+	//   }),
+	// }),
+
 	overrideExisting: true,
 });
 
@@ -137,4 +155,5 @@ export const {
 	useGetLightQuery,
 	useGetLightStatusByIDQuery,
 	useGetChartQuery,
+	useLocationMutateMutation,
 } = authenticationEndpoints;
