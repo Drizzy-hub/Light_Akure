@@ -1,0 +1,31 @@
+{
+	"cli": {
+		"version": ">= 10.0.2"
+	},
+	"build": {
+		"development": {
+			"env": {
+				"EXPO_PUBLIC_API_URL": "https://futatab.com"
+			},
+			"android": {
+				"buildType": "apk"
+			},
+			"developmentClient": true,
+			"distribution": "internal"
+		},
+		"preview": {
+			"android": {
+				"buildType": "apk"
+			},
+			"distribution": "internal"
+		},
+		"production": {
+			"android": {
+				"buildType": "apk"
+			}
+		}
+	},
+	"submit": {
+		"production": {}
+	}
+}
