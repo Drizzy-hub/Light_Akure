@@ -2,7 +2,7 @@ import React from 'react';
 import { BarChart } from 'react-native-gifted-charts';
 import colors from '../constants/Colors';
 import { useGetChartQuery } from '../services/auth';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Platform } from 'react-native';
 import { Text } from './Text';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const StackedBarChart = ({ id }: Props) => {
 	const { data, isLoading } = useGetChartQuery({ id });
-
+	const textColor = Platform.OS === 'ios' ? '#000000' : colors.textColor;
 	if (isLoading) {
 		// Optionally, you can render a loading indicator here
 		return <ActivityIndicator size="large" color={colors.primary} />;
@@ -31,12 +31,12 @@ const StackedBarChart = ({ id }: Props) => {
 		<BarChart
 			xAxisLabelTextStyle={{
 				fontWeight: 400,
-				color: colors.textColor,
+				color: textColor,
 				fontSize: 12,
 				fontFamily: 'Montserrat-Light',
 			}}
 			yAxisTextStyle={{
-				color: colors.textColor,
+				color: textColor,
 				fontSize: 12,
 				fontFamily: 'Montserrat-Light',
 			}}
