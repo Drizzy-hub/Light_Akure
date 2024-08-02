@@ -16,4 +16,5 @@ export type IconName =
 	| 'share'
 	| 'wifi'
 	| 'notification'
-	| 'unread-messages';
+	| 'unread-messages'
+	| 'whatsapp-icon';
