@@ -95,13 +95,14 @@ const Signup = ({ navigation }: StackNavigationProps<AuthRoutes, 'Signup'>) => {
 												if (data.success) {
 													handleMutationService({
 														mutation: completeLogin({
-															phone: value.Phone || '',
+															phone: `234${value.Phone}` || '',
 														}),
 														onSuccess(data) {
 															dispatch(setUser(data));
 														},
 													});
 												}
+												console.log(data, 'data');
 											},
 										});
 									}}
