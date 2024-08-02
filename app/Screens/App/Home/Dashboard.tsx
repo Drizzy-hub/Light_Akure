@@ -14,6 +14,7 @@ import { Icons } from '../../../../assets/Icons';
 import LightStatusComp from './LightCard';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import {
+	useGetAdsQuery,
 	useGetLightQuery,
 	useGetLocationQuery,
 	useGetTimelineQuery,
@@ -43,9 +44,15 @@ const Dashboard = ({
 	const { data, refetch, isLoading, isFetching } = useGetLocationQuery();
 	const { refetch: refetchTimeline } = useGetTimelineQuery();
 	const { refetch: refetchLight } = useGetLightQuery();
+	const { refetch: AdsRefetch } = useGetAdsQuery();
 	const refetchAll = async () => {
 		try {
-			await Promise.all([refetchLight(), refetchTimeline(), refetch()]);
+			await Promise.all([
+				refetchLight(),
+				refetchTimeline(),
+				refetch(),
+				AdsRefetch(),
+			]);
 		} catch (error) {
 			console.warn('REFETCH ERROR', error);
 		}
