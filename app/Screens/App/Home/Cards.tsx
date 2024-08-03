@@ -82,7 +82,7 @@ const CardView = () => {
 								<ErrorInfo visible={true} />
 							</View>
 						) : (
-							<Text style={{ paddingLeft: 10 }}>News not available</Text>
+							''
 						)}
 					</View>
 				}

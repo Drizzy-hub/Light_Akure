@@ -15,7 +15,7 @@ export default {
 		walletHeight: 120,
 		walletRadius: 8,
 		walletWidth: width - 16 * 4,
-		adsWidth: width - 24,
+		adsWidth: width - 16 * 4,
 	},
 	dimension: {
 		isLandscape: height < width,

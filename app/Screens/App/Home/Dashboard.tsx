@@ -25,6 +25,7 @@ import colors from '../../../../constants/Colors';
 import { handleMutationService } from '../../../../services/config/handleService';
 import Toast from 'react-native-toast-message';
 import Ads from './Ads';
+import CardView from './Cards';
 
 interface Inputs {
 	location: string;
@@ -42,9 +43,10 @@ const Dashboard = ({
 		location: storedLocation || '',
 	});
 	const { data, refetch, isLoading, isFetching } = useGetLocationQuery();
-	const { refetch: refetchTimeline } = useGetTimelineQuery();
+	const { refetch: refetchTimeline, data: NewsData } = useGetTimelineQuery();
 	const { refetch: refetchLight } = useGetLightQuery();
-	const { refetch: AdsRefetch } = useGetAdsQuery();
+	const { refetch: AdsRefetch, data: AdsData } = useGetAdsQuery();
+
 	const refetchAll = async () => {
 		try {
 			await Promise.all([
@@ -57,6 +59,7 @@ const Dashboard = ({
 			console.warn('REFETCH ERROR', error);
 		}
 	};
+
 	const getTimeOfDay = () => {
 		const currentTime = new Date().getHours();
 		if (currentTime >= 5 && currentTime < 12) {
@@ -68,10 +71,17 @@ const Dashboard = ({
 		}
 	};
 
-	const [timeOfDay, setTimeOfDay] = useState('');
+	const [timeOfDay, setTimeOfDay] = useState(getTimeOfDay());
+
 	useEffect(() => {
-		const time = getTimeOfDay();
-		setTimeOfDay(time);
+		const updateInterval = setInterval(() => {
+			setTimeOfDay(getTimeOfDay());
+		}, 3600000); // Update every hour (3600000 ms)
+
+		return () => clearInterval(updateInterval); // Cleanup on component unmount
+	}, []);
+
+	useEffect(() => {
 		refetchAll();
 	}, []);
 
@@ -177,13 +187,21 @@ const Dashboard = ({
 
 				<View>
 					<View style={styles.heading}>
-						<Text fontSize={12} color={colors.primaryBlue} fontWeight="600">
-							Sponsored
-						</Text>
+						{AdsData?.data?.length ? (
+							<Text fontSize={12} color={colors.primaryBlue} fontWeight="600">
+								Sponsored
+							</Text>
+						) : (
+							<Text
+								onPress={() => {
+									navigation.navigate('CityBuzz');
+								}}
+							>
+								See more
+							</Text>
+						)}
 					</View>
-					<View>
-						<Ads />
-					</View>
+					<View>{AdsData?.data?.length ? <Ads /> : <CardView />}</View>
 				</View>
 				<View style={styles.container}>
 					<View style={{ marginTop: 33 }}>

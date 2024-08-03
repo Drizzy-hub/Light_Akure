@@ -121,9 +121,6 @@ const CityBuzz = () => {
 			setHasNewNotifications(hasNew);
 		}
 	}, [readPosts, allPosts]);
-	// const unreadPosts = ReadPosts?.interactionStatus.filter(
-	// 	(post: { clicked: number }) => post.clicked === 0
-	// );
 
 	return (
 		<VirtualScroll
@@ -161,7 +158,7 @@ const CityBuzz = () => {
 					<View style={{ marginTop: 10 }} />
 					<CardView />
 					<View style={{ marginBottom: 15 }} />
-					{!error ? (
+					{error ? (
 						<Text
 							style={{
 								fontSize: 13,
@@ -170,30 +167,44 @@ const CityBuzz = () => {
 								fontWeight: '600',
 							}}
 						>
-							What's Buzzing in your city?
+							An error occurred, please try again later.
 						</Text>
-					) : (
-						''
-					)}
-					{isLoading ? (
-						'News Loading'
-					) : (
-						<FlatList
-							// style={{ height: layout.window.height / 1.2 }}
-							data={data?.data || []}
-							keyExtractor={(_, i) => i.toString()}
-							horizontal={false}
-							renderItem={({ item, index }) => {
-								return (
+					) : data?.data?.length ? (
+						<>
+							<Text
+								style={{
+									fontSize: 13,
+									marginBottom: 10,
+									paddingHorizontal: 24,
+									fontWeight: '600',
+								}}
+							>
+								What's Buzzing in your city
+							</Text>
+							<FlatList
+								data={data?.data || []}
+								keyExtractor={(_, i) => i.toString()}
+								horizontal={false}
+								renderItem={({ item }) => (
 									<NewsCard
 										subtitle={item?.description}
 										heading={item?.title}
 										id={item?.id}
 									/>
-									// <NewsCard uri={`http://192.168.0.102/lumoscope/${item.image_path}`} subtitle={item.description} heading={item.title} />
-								);
+								)}
+							/>
+						</>
+					) : (
+						<Text
+							style={{
+								fontSize: 13,
+								marginBottom: 10,
+								paddingHorizontal: 24,
+								fontWeight: '600',
 							}}
-						/>
+						>
+							No news available.
+						</Text>
 					)}
 				</View>
 			</Container>

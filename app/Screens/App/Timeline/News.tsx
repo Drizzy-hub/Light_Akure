@@ -13,10 +13,10 @@ import React, { useState } from 'react';
 import { Container, Header, Text } from '../../../../components';
 import colors from '../../../../constants/Colors';
 import { Icons } from '../../../../assets/Icons';
-
 import { StackNavigationProps } from '../../../Navigation/types/types';
 import { ClientRoutes } from '../../../Navigation';
 import { useGetTimelineByIdQuery } from '../../../../services/auth';
+import { Skeleton } from 'moti/skeleton';
 
 interface Props {
 	heading: string;
@@ -49,10 +49,14 @@ const News = ({ route }: StackNavigationProps<ClientRoutes, 'News'>) => {
 			console.error(error.message);
 		}
 	};
+
 	const { data, isLoading } = useGetTimelineByIdQuery({ id });
+
 	const NewsCard = ({ heading, subtitle, uri }: Props) => {
 		const cleanSubtitle = subtitle.replace(/[\r\n]+/g, ' ');
 		const [modalVisible, setModalVisible] = useState(false);
+		const [loading, setLoading] = useState(true);
+
 		return (
 			<ScrollView
 				style={{
@@ -74,15 +78,23 @@ const News = ({ route }: StackNavigationProps<ClientRoutes, 'News'>) => {
 					{cleanSubtitle}
 				</Text>
 				<TouchableOpacity onPress={() => setModalVisible(true)}>
-					<Image
-						source={{ uri }}
-						style={{
-							width: '100%',
-							height: 200,
-							marginBottom: 17,
-							borderRadius: 8,
-						}}
-					/>
+					<Skeleton
+						colorMode="light"
+						width={'100%'}
+						height={200}
+						show={loading}
+					>
+						<Image
+							source={{ uri }}
+							style={{
+								width: '100%',
+								height: 200,
+								marginBottom: 17,
+								borderRadius: 8,
+							}}
+							onLoad={() => setLoading(false)}
+						/>
+					</Skeleton>
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
@@ -112,6 +124,7 @@ const News = ({ route }: StackNavigationProps<ClientRoutes, 'News'>) => {
 			</ScrollView>
 		);
 	};
+
 	return (
 		<Container>
 			<ScrollView style={{ flex: 1 }}>

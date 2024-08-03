@@ -13,6 +13,7 @@ import colors from '../../../../constants/Colors';
 import { New } from '../Data/test';
 import { layout } from '../../../../constants';
 import { useGetAdsQuery, useGetTimelineQuery } from '../../../../services/auth';
+import { Skeleton } from 'moti/skeleton';
 
 interface Props {
 	marginRight?: number;
@@ -24,7 +25,7 @@ interface Props {
 }
 const Cards = ({ title, body, uri, marginRight, contact }: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
-
+	const [loading, setLoading] = useState(true);
 	const visitAd = useCallback(async () => {
 		const canOpen = await Linking.canOpenURL(`https://wa.me/${contact}`);
 		if (canOpen) {
@@ -35,10 +36,31 @@ const Cards = ({ title, body, uri, marginRight, contact }: Props) => {
 	}, [contact]);
 	return (
 		<View style={[styles.adCard, { marginRight }]}>
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.body}>{body}</Text>
 			<TouchableOpacity onPress={() => setModalVisible(true)}>
-				<Image style={{ height: 70, width: '100%' }} source={{ uri }} />
+				<View>
+					<Skeleton colorMode="light" width={'100%'} height={10}>
+						{loading ? null : (
+							<Text style={[styles.title, { textTransform: 'capitalize' }]}>
+								{title}
+							</Text>
+						)}
+					</Skeleton>
+				</View>
+				<Skeleton colorMode="light" width={'100%'} show={loading} height={100}>
+					<Image
+						style={{ height: 100, width: '100%', borderRadius: 10 }}
+						source={{ uri }}
+						onLoad={() => setLoading(false)}
+					/>
+				</Skeleton>
+
+				<Skeleton colorMode="light" width={'100%'} height={10}>
+					{loading ? null : (
+						<Text numberOfLines={2} ellipsizeMode="tail" style={styles.body}>
+							{body}
+						</Text>
+					)}
+				</Skeleton>
 			</TouchableOpacity>
 			<Modal
 				animationType="slide"
@@ -115,18 +137,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 		overflow: 'hidden',
 		width: layout.cards.adsWidth,
-		height: 200,
-		borderRadius: 10,
+
+		borderRadius: 20,
 		padding: 15,
-		backgroundColor: colors.primaryBlue,
+		shadowOffset: { width: 10, height: 10 },
+		backgroundColor: 'white',
+		marginBottom: 10,
 	},
 	title: {
-		color: colors.white,
+		color: colors.primaryBlue,
 		fontSize: 15,
 		fontWeight: '700',
 		marginBottom: 10,
 	},
-	body: { color: colors.white, marginBottom: 10, fontSize: 13 },
+	body: { color: colors.black, marginTop: 8, fontSize: 13 },
 	modalView: {
 		flex: 1,
 		backgroundColor: 'black',
