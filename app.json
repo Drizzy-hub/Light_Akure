@@ -1,74 +1,69 @@
 {
-  "expo": {
-    "name": "Lumoscope",
-    "scheme": "com.lumoscope",
-    "slug": "Lumoscope",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/android/mipmap-xxxhdpi/lumoscape.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/lumoSplash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#15619F"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "entitlements": {
-        "aps-environment": "production"
-      },
-      "supportsTablet": true,
-      "bundleIdentifier": "lumoscope"
-    },
-    "android": {
-      "googleServicesFile": "./google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "autoVerify": true,
-          "data": [
-            {
-              "scheme": "https",
-              "host": "com.real_drizzy.Lumoscope",
-              "pathPrefix": "/news"
-            }
-          ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        }
-      ],
-      "package": "com.real_drizzy.Lumoscope"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "@react-native-firebase/app",
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/Montserrat-Bold.ttf",
-            "./assets/fonts/Montserrat-Regular.ttf",
-            "./assets/fonts/Montserrat-Medium.ttf",
-            "./assets/fonts/Montserrat-Thin.ttf"
-          ]
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "a78dd5dc-1c59-48f7-8263-2112bfd6d263"
-      }
-    },
-    "owner": "real_drizzy"
-  }
+	"expo": {
+		"name": "Lumoscope",
+		"scheme": "com.lumoscope",
+		"slug": "Lumoscope",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/android/mipmap-xxxhdpi/lumoscape.png",
+		"userInterfaceStyle": "light",
+		"splash": {
+			"image": "./assets/lumoSplash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#15619F"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"entitlements": {
+				"aps-environment": "production"
+			},
+			"supportsTablet": true,
+			"bundleIdentifier": "com.example.lumoscope"
+		},
+		"android": {
+			"googleServicesFile": "./google-services.json",
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"intentFilters": [
+				{
+					"action": "VIEW",
+					"autoVerify": true,
+					"data": [
+						{
+							"scheme": "https",
+							"host": "com.real_drizzy.Lumoscope",
+							"pathPrefix": "/news"
+						}
+					],
+					"category": ["BROWSABLE", "DEFAULT"]
+				}
+			],
+			"package": "com.real_drizzy.Lumoscope"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"plugins": [
+			"@react-native-firebase/app",
+			[
+				"expo-font",
+				{
+					"fonts": [
+						"./assets/fonts/Montserrat-Bold.ttf",
+						"./assets/fonts/Montserrat-Regular.ttf",
+						"./assets/fonts/Montserrat-Medium.ttf",
+						"./assets/fonts/Montserrat-Thin.ttf"
+					]
+				}
+			]
+		],
+		"extra": {
+			"eas": {
+				"projectId": "a78dd5dc-1c59-48f7-8263-2112bfd6d263"
+			}
+		},
+		"owner": "real_drizzy"
+	}
 }
