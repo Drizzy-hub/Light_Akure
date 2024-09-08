@@ -34,6 +34,7 @@ interface Inputs {
 const Dashboard = ({
 	navigation,
 }: StackNavigationProps<ClientRoutes, 'Dashboard'>) => {
+	const [searchTerm, setSearch] = useState('');
 	const { user, location: storedLocation } = useAppSelector(
 		(state) => state.authSlice
 	);
@@ -151,6 +152,7 @@ const Dashboard = ({
 					<View style={{ marginTop: 24 }}>
 						<Form initialValues={initialValues} onSubmit={onSubmit}>
 							<FormPicker
+								hasCustomSearch
 								items={
 									data?.data.map((state) => ({
 										label: state?.location,
@@ -197,7 +199,7 @@ const Dashboard = ({
 									navigation.navigate('CityBuzz');
 								}}
 							>
-								See more
+								{NewsData?.data?.length ? 'See more' : null}
 							</Text>
 						)}
 					</View>
@@ -205,9 +207,6 @@ const Dashboard = ({
 				</View>
 				<View style={styles.container}>
 					<View style={{ marginTop: 33 }}>
-						<Text fontSize={14} style={{ marginBottom: 16 }} fontWeight="700">
-							Power Status in Nearby Areas
-						</Text>
 						<LightStatusComp />
 					</View>
 				</View>

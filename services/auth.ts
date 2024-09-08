@@ -154,11 +154,15 @@ const authenticationEndpoints = injectEndpoints({
 				url: `/get_light_status_id.php?id=${id}/`,
 			}),
 		}),
-		getLight: builder.query<LightStatus, void>({
-			query: () => ({
-				url: `/get_light_status.php`,
-			}),
+		getLight: builder.query<LightStatus, string | void>({
+			query: (searchTerm = '') => {
+				return {
+					url: '/get_light_status.php',
+					params: searchTerm ? { search: searchTerm } : {},
+				};
+			},
 		}),
+
 		getChart: builder.query<Barchart, { id: string }>({
 			query: ({ id }) => ({
 				url: `/getChart.php?id=${id}/`,
