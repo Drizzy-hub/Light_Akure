@@ -27,6 +27,7 @@ import { AppRoutes } from '../../../Navigation';
 import { useStackNavigationProp } from '../../../Navigation/types/types';
 import { useAppSelector } from '../../../../store/hooks';
 import { handleMutationService } from '../../../../services/config/handleService';
+import { Skeleton } from 'moti/skeleton';
 
 interface Props {
 	heading: string;
@@ -38,11 +39,12 @@ interface PostModel {
 	post_id: string;
 	clicked_at: string;
 }
-const NewsCard = ({ heading, subtitle, id }: Props) => {
+const NewsCard = ({ heading, subtitle, id, uri }: Props) => {
 	const [showFullText, setShowFullText] = useState(false);
 	const { user } = useAppSelector((state) => state.authSlice);
 	const [showSeeMore, setShowSeeMore] = useState(false);
 	const [postMutation] = usePostMutateMutation();
+	const [loading, setLoading] = useState(true);
 	const handleTextLayout = (event: any) => {
 		const { height } = event.nativeEvent.layout;
 		const lineHeight = 20; // Adjust this based on your font size and line height
@@ -85,6 +87,20 @@ const NewsCard = ({ heading, subtitle, id }: Props) => {
 					<Text style={styles.seeMore}>See More</Text>
 				</TouchableOpacity>
 			)}
+			{uri && (
+				<Skeleton colorMode="light" width={'100%'} height={200} show={loading}>
+					<Image
+						source={{ uri }}
+						style={{
+							width: '100%',
+							height: 200,
+							marginBottom: 17,
+							borderRadius: 8,
+						}}
+						onLoad={() => setLoading(false)}
+					/>
+				</Skeleton>
+			)}
 		</View>
 	);
 };
@@ -92,7 +108,7 @@ const NewsCard = ({ heading, subtitle, id }: Props) => {
 const CityBuzz = () => {
 	const { data, isLoading, refetch, isFetching, error } = useGetTimelineQuery();
 	console.log(data);
-	const { user } = useAppSelector((state) => state.authSlice);
+	const { user } = useAppSelector((state) => state?.authSlice);
 	const [hasNewNotifications, setHasNewNotifications] =
 		useState<boolean>(false);
 	const {
@@ -156,7 +172,7 @@ const CityBuzz = () => {
 				/>
 				<View style={styles.container}>
 					<View style={{ marginTop: 10 }} />
-					<CardView />
+					{/* <CardView /> */}
 					<View style={{ marginBottom: 15 }} />
 					{error ? (
 						<Text
@@ -190,6 +206,7 @@ const CityBuzz = () => {
 										subtitle={item?.description}
 										heading={item?.title}
 										id={item?.id}
+										uri={`https://futatab.com/${item?.image_path}`}
 									/>
 								)}
 							/>
@@ -229,6 +246,11 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 14,
 	},
+	image: {
+		height: 104,
+		alignItems: 'center',
+		flexDirection: 'row',
+	},
 	subtitle: {
 		marginBottom: 15,
 		fontWeight: '400',
@@ -237,9 +259,5 @@ const styles = StyleSheet.create({
 	seeMore: {
 		color: 'blue',
 		marginBottom: 15,
-	},
-	shareButton: {
-		alignItems: 'center',
-		marginBottom: 20,
 	},
 });

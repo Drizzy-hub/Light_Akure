@@ -205,12 +205,24 @@ const Dashboard = ({
 					</View>
 					<View>{AdsData?.data?.length ? <Ads /> : <CardView />}</View>
 				</View>
-				<View style={styles.container}>
-					<View style={{ marginTop: 33 }}>
-						<LightStatusComp />
-					</View>
+
+				<View
+					style={[
+						styles.container,
+						{
+							paddingTop:
+								AdsData?.data?.length || NewsData?.data?.length ? 14 : 0,
+						},
+						{
+							marginTop:
+								AdsData?.data?.length || NewsData?.data?.length ? 33 : 0,
+						},
+					]}
+				>
+					<LightStatusComp />
 				</View>
 			</Container>
+			<View style={{ marginBottom: 15 }} />
 		</VirtualScroll>
 	);
 };
@@ -220,7 +232,6 @@ export default Dashboard;
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 24,
-		paddingTop: 14,
 	},
 	header: {
 		flexDirection: 'row',

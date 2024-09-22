@@ -94,42 +94,6 @@ export default function FormPicker({
 		[]
 	);
 
-	const inputWidth = useRef(new Animated.Value(40)).current; // Start width (same as icon)
-	const inputOpacity = useRef(new Animated.Value(0)).current;
-	const [isExpanded, setIsExpanded] = useState(false);
-	const toggleSearchBox = () => {
-		if (isExpanded) {
-			// Shrink search box
-			Animated.timing(inputWidth, {
-				toValue: 40, // Back to icon size
-				duration: 300,
-				useNativeDriver: false,
-				easing: Easing.linear,
-			}).start(() => {
-				setIsExpanded(false);
-				Animated.timing(inputOpacity, {
-					toValue: 0,
-					duration: 100,
-					useNativeDriver: true,
-				}).start();
-			});
-		} else {
-			// Expand search box
-			setIsExpanded(true);
-			Animated.timing(inputWidth, {
-				toValue: 350, // Full width when expanded
-				duration: 300,
-				useNativeDriver: false,
-				easing: Easing.linear,
-			}).start(() => {
-				Animated.timing(inputOpacity, {
-					toValue: 1,
-					duration: 200,
-					useNativeDriver: true,
-				}).start();
-			});
-		}
-	};
 	return (
 		<>
 			<TouchableOpacity
@@ -188,33 +152,18 @@ export default function FormPicker({
 				<View style={{ flex: 1 }}>
 					{hasCustomSearch && (
 						<View style={{ paddingHorizontal: 20, marginTop: 5 }}>
-							<Animated.View
-								style={[styles.searchContainer, { width: inputWidth }]}
-							>
-								{isExpanded && (
-									<Animated.View style={{ flex: 1, opacity: inputOpacity }}>
-										<FormInput
-											style={{ backgroundColor: colors.white }}
-											value={search}
-											onChangeText={setSearch}
-											placeholder="Search Locations"
-											placeholderTextColor={colors.primaryTextColor}
-											autoFocus={true}
-										/>
-									</Animated.View>
-								)}
-								<TouchableOpacity
-									onPress={toggleSearchBox}
-									style={styles.iconButton}
-								>
-									<Icons
-										style={{ marginLeft: isExpanded ? 10 : 0 }}
-										name="search"
-										size={isExpanded ? 24 : 16}
-										color={colors.textColor}
+							<View style={[styles.searchContainer, { width: '100%' }]}>
+								<View style={{ flex: 1 }}>
+									<FormInput
+										style={{ backgroundColor: colors.white }}
+										value={search}
+										onChangeText={setSearch}
+										placeholder="Search Locations"
+										placeholderTextColor={colors.primaryTextColor}
+										autoFocus={true}
 									/>
-								</TouchableOpacity>
-							</Animated.View>
+								</View>
+							</View>
 						</View>
 					)}
 					{hasSearch && (

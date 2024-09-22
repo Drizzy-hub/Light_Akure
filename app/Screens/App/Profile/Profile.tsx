@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	ScrollView,
 	Linking,
@@ -6,34 +7,32 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
-import React, { useCallback } from 'react';
 import { Container, FormInput, Header, Text } from '../../../../components';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import colors from '../../../../constants/Colors';
 import { logout } from '../../../../store/features/authSlice';
 import { apiUtilTool } from '../../../../services/api';
-import { Icons } from '../../../../assets/Icons';
 
 const Profile = () => {
 	const { user, location } = useAppSelector((state) => state.authSlice);
 	const dispatch = useAppDispatch();
 
-	const handleLinkPress = async () => {
-		const email = 'mailto:support@qoraymobility.com';
+	const openLink = async (url: string) => {
 		try {
-			await Linking.openURL(email);
+			const supported = await Linking.canOpenURL(url);
+			if (supported) {
+				await Linking.openURL(url);
+			} else {
+				console.error(`Don't know how to open this URL: ${url}`);
+			}
 		} catch (error) {
-			console.error('Failed to open link:', error);
+			console.error('An error occurred', error);
 		}
 	};
-	const visit = useCallback(async () => {
-		const canOpen = await Linking.canOpenURL('https://wa.me/+2349134452032');
-		if (canOpen) {
-			await Linking.openURL('https://wa.me/+2349134452032');
-		} else {
-			console.error('Unable to open URL');
-		}
-	}, []);
+
+	const handleLinkPress = () => openLink('mailto:support@futatab.com');
+	const handleWhatsAppPress = () => openLink('https://wa.me/+2349134452032');
+
 	return (
 		<ScrollView>
 			<Container>
@@ -74,10 +73,6 @@ const Profile = () => {
 							Log out
 						</Text>
 					</View>
-					{/* <View style={{ marginTop: 20 }}>
-					<Text style={{ color: colors.red, marginTop: 10 }}>
-						Delete Account
-					</Text> */}
 				</View>
 				<Text
 					textAlign="center"
@@ -88,7 +83,7 @@ const Profile = () => {
 					support@futatab.com
 				</Text>
 				<TouchableOpacity
-					onPress={visit}
+					onPress={handleWhatsAppPress}
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',

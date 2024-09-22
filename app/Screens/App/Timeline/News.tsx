@@ -96,14 +96,14 @@ const News = ({ route }: StackNavigationProps<ClientRoutes, 'News'>) => {
 						/>
 					</Skeleton>
 				</TouchableOpacity>
-				<TouchableOpacity
+				{/* <TouchableOpacity
 					onPress={() => {
 						sharePost(id);
 					}}
 					style={{ alignItems: 'center' }}
 				>
 					<Icons style={{ marginBottom: 20 }} name="share" />
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 				<Modal
 					animationType="slide"
 					transparent={true}
