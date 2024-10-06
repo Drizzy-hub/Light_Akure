@@ -17,16 +17,14 @@ const Profile = () => {
 	const { user, location } = useAppSelector((state) => state.authSlice);
 	const dispatch = useAppDispatch();
 	const phoneNumber = '+2349134452032';
-	const whatsappURL = `whatsapp://send?phone=${phoneNumber}`;
+	const whatsappURL = `https://wa.me/${phoneNumber}`;
 	const openLink = async (url: string) => {
 		try {
 			const supported = await Linking.canOpenURL(url);
 			if (supported) {
 				await Linking.openURL(url);
 			} else {
-				await Linking.openURL(
-					`https://api.whatsapp.com/send?phone=${phoneNumber}`
-				);
+				await Linking.openURL(`https://wa.me/${phoneNumber}`);
 			}
 		} catch (error) {
 			console.error('An error occurred', error);

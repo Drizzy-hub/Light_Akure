@@ -154,18 +154,18 @@ const Dashboard = ({
 							<FormPicker
 								hasCustomSearch
 								items={
-									data?.data.map((state) => ({
-										label: state?.location,
-										value: state?.id,
+									data?.data?.map((state) => ({
+										label: state?.location ?? '',
+										value: state?.id ?? '',
 									})) ?? []
 								}
 								onSelectItem={(item) => {
 									const newLocation = item.label;
-									setInputs({ location: newLocation });
+									setInputs({ location: newLocation ?? '' });
 									handleMutationService({
 										mutation: locationMutation({
-											id: user?.user?.id,
-											location: newLocation,
+											id: user?.user?.id ?? '',
+											location: newLocation ?? '',
 										}),
 										onError(error) {
 											console.log(error);
@@ -175,13 +175,13 @@ const Dashboard = ({
 												type: 'success',
 												text1: 'Location added successfully.',
 											});
-											dispatch(setLocation(newLocation));
+											dispatch(setLocation(newLocation ?? ''));
 										},
 									});
 								}}
 								name="location"
 								LeftComponent={<Icons size={24} name="location" />}
-								placeholder={user ? user?.user.location : 'Select Location'}
+								placeholder={user ? user?.user?.location : 'Select Location'}
 							/>
 						</Form>
 					</View>
