@@ -27,11 +27,13 @@ const Cards = ({ title, body, uri, marginRight, contact }: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const visitAd = useCallback(async () => {
-		const canOpen = await Linking.canOpenURL(`https://wa.me/${contact}`);
+		const canOpen = await Linking.canOpenURL(
+			`whatsapp://send?phone=${contact}`
+		);
 		if (canOpen) {
-			await Linking.openURL(`https://wa.me/${contact}`);
+			await Linking.openURL(`whatsapp://send?phone=${contact}`);
 		} else {
-			console.error('Unable to open URL');
+			await Linking.openURL(`https://api.whatsapp.com/send?phone=${contact}`);
 		}
 	}, [contact]);
 	return (

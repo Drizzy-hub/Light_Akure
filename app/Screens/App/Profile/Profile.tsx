@@ -16,22 +16,25 @@ import { apiUtilTool } from '../../../../services/api';
 const Profile = () => {
 	const { user, location } = useAppSelector((state) => state.authSlice);
 	const dispatch = useAppDispatch();
-
+	const phoneNumber = '+2349134452032';
+	const whatsappURL = `whatsapp://send?phone=${phoneNumber}`;
 	const openLink = async (url: string) => {
 		try {
 			const supported = await Linking.canOpenURL(url);
 			if (supported) {
 				await Linking.openURL(url);
 			} else {
-				console.error(`Don't know how to open this URL: ${url}`);
+				await Linking.openURL(
+					`https://api.whatsapp.com/send?phone=${phoneNumber}`
+				);
 			}
 		} catch (error) {
 			console.error('An error occurred', error);
 		}
 	};
-
+	// Remove spaces, special characters
 	const handleLinkPress = () => openLink('mailto:support@futatab.com');
-	const handleWhatsAppPress = () => openLink('https://wa.me/+2349134452032');
+	const handleWhatsAppPress = () => openLink(whatsappURL);
 
 	return (
 		<ScrollView>
