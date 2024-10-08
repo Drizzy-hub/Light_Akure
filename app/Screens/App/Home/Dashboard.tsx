@@ -126,7 +126,7 @@ const Dashboard = ({
 					<View style={styles.header}>
 						<View>
 							<Text fontSize={14} fontWeight="700">
-								Welcome to Lumoscape!
+								Welcome to FutaTab!
 							</Text>
 							<View style={{ alignItems: 'center', flexDirection: 'row' }}>
 								<Text fontSize={14} fontWeight="400">

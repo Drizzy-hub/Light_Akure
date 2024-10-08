@@ -1,16 +1,16 @@
 {
 	"expo": {
-		"name": "Lumoscope",
+		"name": "Futatab",
 		"scheme": "com.lumoscope",
 		"slug": "Lumoscope",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/android/mipmap-xxxhdpi/lumoscape.png",
+		"icon": "./assets/icon.png",
 		"userInterfaceStyle": "light",
 		"splash": {
-			"image": "./assets/lumoSplash.png",
+			"image": "./assets/splashscreen_image.png",
 			"resizeMode": "contain",
-			"backgroundColor": "#15619F"
+			"backgroundColor": "#022C4E"
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
