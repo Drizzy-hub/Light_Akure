@@ -6,18 +6,23 @@ import {
 	View,
 	Image,
 	TouchableOpacity,
+	Alert,
 } from 'react-native';
 import { Container, FormInput, Header, Text } from '../../../../components';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import colors from '../../../../constants/Colors';
 import { logout } from '../../../../store/features/authSlice';
 import { apiUtilTool } from '../../../../services/api';
+import { useDeleteMutation } from '../../../../services/auth';
+import { handleMutationService } from '../../../../services/config/handleService';
 
 const Profile = () => {
 	const { user, location } = useAppSelector((state) => state.authSlice);
 	const dispatch = useAppDispatch();
+	const [completeDelete] = useDeleteMutation();
 	const phoneNumber = '+2349134452032';
 	const whatsappURL = `https://wa.me/${phoneNumber}`;
+
 	const openLink = async (url: string) => {
 		try {
 			const supported = await Linking.canOpenURL(url);
@@ -30,7 +35,40 @@ const Profile = () => {
 			console.error('An error occurred', error);
 		}
 	};
-	// Remove spaces, special characters
+
+	// Handle delete account confirmation
+	const confirmDeleteAccount = () => {
+		Alert.alert(
+			'Delete Account',
+			'Are you sure you want to delete your account 🥺 ? This action cannot be undone.',
+			[
+				{
+					text: 'Cancel',
+					onPress: () => console.log('Account deletion cancelled'),
+					style: 'cancel',
+				},
+				{
+					text: 'Yes, Delete',
+					onPress: () => {
+						handleMutationService({
+							mutation: completeDelete({
+								Phone: user?.user.phone || '',
+							}),
+							onSuccess(data) {
+								if (data.success) {
+									dispatch(logout());
+									apiUtilTool.resetApiState();
+								}
+							},
+						});
+					},
+					style: 'destructive', // Optional for red text on iOS
+				},
+			],
+			{ cancelable: true }
+		);
+	};
+
 	const handleLinkPress = () => openLink('mailto:support@futatab.com');
 	const handleWhatsAppPress = () => openLink(whatsappURL);
 
@@ -69,9 +107,15 @@ const Profile = () => {
 								dispatch(logout());
 								apiUtilTool.resetApiState();
 							}}
-							style={{ color: colors.primaryBlue, marginBottom: 20 }}
+							style={{ color: colors.primaryBlue, marginBottom: 10 }}
 						>
 							Log out
+						</Text>
+						<Text
+							onPress={confirmDeleteAccount} // Use confirmation popup
+							style={{ color: colors.red, marginBottom: 10 }}
+						>
+							Delete Account
 						</Text>
 					</View>
 				</View>

@@ -6,6 +6,7 @@ interface APIDataResponse<D> {
 	success: boolean;
 	data: D;
 }
+
 export interface APILoginResponse {
 	message: string;
 	success: boolean;
@@ -104,6 +105,16 @@ const authenticationEndpoints = injectEndpoints({
 				body: JSON.stringify(body),
 				method: 'POST',
 				url: `/signup.php?${body}`,
+			}),
+		}),
+		delete: builder.mutation<
+			APIDataResponse<{ Phone: string }>,
+			{ Phone: string }
+		>({
+			query: (body) => ({
+				body: JSON.stringify(body),
+				method: 'POST',
+				url: `/delete_acct.php?${body}`,
 			}),
 		}),
 		login: builder.mutation<APILoginResponse, LoginModel>({
@@ -216,4 +227,5 @@ export const {
 	useGetReadPostsQuery,
 	useLocationMutateMutation,
 	useDeviceTokenMutateMutation,
+	useDeleteMutation,
 } = authenticationEndpoints;
